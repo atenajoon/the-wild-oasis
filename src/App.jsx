@@ -18,8 +18,14 @@ function App() {
             <Heading as='h1'>The Wild Oasis</Heading>
             <div>
               <Heading as='h2'>Check in and out</Heading>
-              <Button>Check in</Button>
-              <Button>Check out</Button>
+              <Button onClick={() => alert('check out')}>Check in</Button>
+              <Button
+                variation='secondary'
+                size='small'
+                onClick={() => alert('check in')}
+              >
+                Check out
+              </Button>
             </div>
           </Row>
           <Row type='vertical'>
