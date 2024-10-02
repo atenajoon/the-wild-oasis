@@ -12,8 +12,8 @@ function AddCabin() {
         Add new cabin
       </Button>
       {isOpenModal && (
-        <Modal>
-          <CreateCabinForm />
+        <Modal onClick={() => setIsOpenModal(false)}>
+          <CreateCabinForm onCloseModal={() => setIsOpenModal(false)} />
         </Modal>
       )}
     </div>
