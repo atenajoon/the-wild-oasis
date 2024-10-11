@@ -1,14 +1,8 @@
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { cloneElement, createContext, useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
+import useOutsideClick from './useOutsideClick';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -87,23 +81,7 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useRef();
-
-  useEffect(() => {
-    function handleClick(e) {
-      // ref.current is the DOM element of the Modal window, which has the "contain" method to check if the clicked element is inside the Modal
-      if (ref.current && !ref.current.contains(e.target)) {
-        close();
-      }
-    }
-
-    // true is the value of the useCapture, which is the third argument to make the event being handled only
-    // in capturing phase(moving down the tree), not the bubbling phase(moving up the tree)
-    // the third parameter can be an 'option' or a 'useCapture'. read more here: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
-    document.addEventListener('click', handleClick, true);
-
-    return () => document.removeEventListener('click', handleClick, true);
-  }, [close]);
+  const ref = useOutsideClick(close);
 
   if (name !== openName) return null;
 
