@@ -1,4 +1,11 @@
-import { cloneElement, createContext, useContext, useState } from 'react';
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
@@ -74,16 +81,35 @@ function Modal({ children }) {
 function Open({ children, opens: opensWindowName }) {
   const { open } = useContext(ModalContext);
 
+  //  children is a button passed to Modal.Open
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
+  const ref = useRef();
+
+  useEffect(() => {
+    function handleClick(e) {
+      // ref.current is the DOM element of the Modal window, which has the "contain" method to check if the clicked element is inside the Modal
+      if (ref.current && !ref.current.contains(e.target)) {
+        close();
+      }
+    }
+
+    // true is the value of the useCapture, which is the third argument to make the event being handled only
+    // in capturing phase(moving down the tree), not the bubbling phase(moving up the tree)
+    // the third parameter can be an 'option' or a 'useCapture'. read more here: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+    document.addEventListener('click', handleClick, true);
+
+    return () => document.removeEventListener('click', handleClick, true);
+  }, [close]);
+
   if (name !== openName) return null;
 
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
