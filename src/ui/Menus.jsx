@@ -1,4 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { HiEllipsisVertical } from 'react-icons/hi2';
 import styled from 'styled-components';
 
 const Menu = styled.div`
@@ -67,16 +69,51 @@ const MenusContext = createContext();
 function Menus({ children }) {
   const [openId, setOpenId] = useState('');
   const close = () => setOpenId('');
-  const open = setOpenId;
+  // const open = setOpenId;
+  const open = (id) => setOpenId(id);
 
   return (
-    <MenusContext.Provider value={{ openId }}>{children}</MenusContext.Provider>
+    <MenusContext.Provider value={{ openId, close, open }}>
+      {children}
+    </MenusContext.Provider>
   );
 }
 
-function Toggle({ id }) {}
-function List({ id }) {}
-function Button({ children }) {}
+function Toggle({ id }) {
+  const { openId, close, open } = useContext(MenusContext);
+
+  function handleClick() {
+    console.log('click');
+    openId === '' || openId !== id ? open(id) : close();
+  }
+
+  return (
+    <StyledToggle onClick={handleClick}>
+      {/* the three dots icon */}
+      <HiEllipsisVertical />
+    </StyledToggle>
+  );
+}
+
+function List({ id, children }) {
+  const { openId } = useContext(MenusContext);
+  console.log(openId, id); // Debugging log
+
+  if (openId !== id) return null;
+
+  return createPortal(
+    <StyledList position={{ x: 50, y: 20 }}>{children}</StyledList>,
+    document.body
+  );
+}
+
+function Button({ children }) {
+  return (
+    <li>
+      <StyledButton>{children}</StyledButton>
+    </li>
+  );
+}
 Menus.Toggle = Toggle;
 Menus.List = List;
 Menus.Button = Button;
