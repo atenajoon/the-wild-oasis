@@ -69,8 +69,7 @@ const MenusContext = createContext();
 function Menus({ children }) {
   const [openId, setOpenId] = useState('');
   const close = () => setOpenId('');
-  // const open = setOpenId;
-  const open = (id) => setOpenId(id);
+  const open = setOpenId;
 
   return (
     <MenusContext.Provider value={{ openId, close, open }}>
@@ -82,8 +81,9 @@ function Menus({ children }) {
 function Toggle({ id }) {
   const { openId, close, open } = useContext(MenusContext);
 
-  function handleClick() {
-    console.log('click');
+  function handleClick(e) {
+    const rect = e.target.closest('button').getBoundingClientRect();
+    console.log(rect);
     openId === '' || openId !== id ? open(id) : close();
   }
 
@@ -97,7 +97,6 @@ function Toggle({ id }) {
 
 function List({ id, children }) {
   const { openId } = useContext(MenusContext);
-  console.log(openId, id); // Debugging log
 
   if (openId !== id) return null;
 
