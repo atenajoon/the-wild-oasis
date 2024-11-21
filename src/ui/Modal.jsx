@@ -99,7 +99,7 @@ function Window({ children, name }) {
   );
 }
 
-// 4) place these two as properties on the mpdal
+// 4) place these two as properties on the modal
 Modal.Open = Open;
 Modal.Window = Window;
 
