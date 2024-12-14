@@ -139,15 +139,6 @@ function BookingRow({
             onConfirm={() => deleteBooking(bookingId)}
           />
         </Modal.Window>
-
-        {/* <Menus.Button
-            icon={<HiTrash />}
-            onClick={() => console.log('deleted')}
-            >
-            Delete booking
-            </Menus.Button> */}
-        {/* </Menus.List>
-        </Menus.Menu> */}
       </Modal>
     </Table.Row>
   );
