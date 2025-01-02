@@ -1,8 +1,8 @@
 import { HiOutlineUser } from 'react-icons/hi2';
-import { LuLogOut } from 'react-icons/lu';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ButtonIcon from './ButtonIcon';
-import { useNavigate } from 'react-router-dom';
+import Logout from '../features/authentication/Logout';
 
 const StyledHeaderMenu = styled.ul`
   display: flex;
@@ -19,7 +19,7 @@ function HeaderMenu() {
         </ButtonIcon>
       </li>
       <li>
-        <LuLogOut />
+        <Logout />
       </li>
     </StyledHeaderMenu>
   );
