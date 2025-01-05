@@ -10,7 +10,6 @@ import Modal from '../../ui/Modal';
 import Menus from '../../ui/Menus';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import Table from '../../ui/Table';
-import Menus from '../../ui/Menus';
 
 const Img = styled.img`
   display: block;
