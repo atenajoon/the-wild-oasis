@@ -72,7 +72,7 @@ function Header({ children }) {
   const { columns } = useContext(TableContext);
 
   return (
-    <StyledHeader role='tow' columns={columns} as='header'>
+    <StyledHeader role='row' columns={columns} as='header'>
       {children}
     </StyledHeader>
   );
@@ -81,13 +81,13 @@ function Row({ children }) {
   const { columns } = useContext(TableContext);
 
   return (
-    <StyledRow role='tow' columns={columns}>
+    <StyledRow role='row' columns={columns}>
       {children}
     </StyledRow>
   );
 }
 function Body({ data, render }) {
-  if (!data.length) return <Empty>No data to show at the moment</Empty>;
+  if (!data?.length) return <Empty>No data to show at the moment</Empty>;
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
