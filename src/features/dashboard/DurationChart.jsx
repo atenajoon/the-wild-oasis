@@ -143,7 +143,7 @@ function DurationChart({ confirmedStays }) {
   return (
     <ChartBox>
       <Heading as='h2'>Stay duration summary</Heading>
-      <ResponsiveContainer>
+      <ResponsiveContainer width='100%' height={240}>
         <PieChart>
           <Pie
             data={startDataLight}
@@ -153,7 +153,7 @@ function DurationChart({ confirmedStays }) {
             outerRadius={110}
             cx='40%' //center
             cy='50%'
-            paddingAngle={1}
+            paddingAngle={2}
           >
             {data.map((entry) => (
               <Cell
