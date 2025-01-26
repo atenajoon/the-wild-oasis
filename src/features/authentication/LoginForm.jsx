@@ -8,6 +8,9 @@ import SpinnerMini from '../../ui/SpinnerMini';
 // 'jonas@example.com'\
 // 'pass0987'
 
+// 'test@user.com'\
+// 'testuser123'
+
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
